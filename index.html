@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5e60ce">
-  <title>Manual de Trading - RFC + BIAS Checklist PRO</title>
+  <title>Manual de Trading Checklist PRO</title>
   <style>
     :root {
       --primary: #5e60ce;
@@ -162,7 +162,6 @@
         padding: 20px;
       }
       nav {
-        flex-direction: column;
         gap: 10px;
       }
     }
@@ -170,24 +169,14 @@
 </head>
 <body>
 
-  <h1>📈 Manual de Trading</h1>
+  <h1>📈 Trading</h1>
 
   <nav>
-    <a href="#rfcChecklist">🚩 RFC</a>
-    <a href="#biasChecklist">📊 BIAS</a>
+    <a href="#OP">📊 OP</a>
+    <a href="#RF">🚩 RF</a>
   </nav>
 
-  <h2 id="rfcChecklist">🚩 RFC - Red Flag Checklist</h2>
-  <div class="section">
-    <div class="item"><input type="checkbox" id="rfc1"><label for="rfc1">¿Demasiado tiempo dentro de un OB? (>30min en M5 o >1h en M15)</label></div>
-    <div class="item"><input type="checkbox" id="rfc2"><label for="rfc2">¿Acumulación en medio de la entrada?</label></div>
-    <div class="item"><input type="checkbox" id="rfc3"><label for="rfc3">¿Quiebre de estructura en temporalidades pequeñas?</label></div>
-    <div class="item"><input type="checkbox" id="rfc4"><label for="rfc4">¿El precio tarda más de 3 horas en llegar al TP?</label></div>
-    <div class="item"><input type="checkbox" id="rfc5"><label for="rfc5">¿La entrada se ve "demasiado perfecta" para ser real?</label></div>
-    <div class="item"><input type="checkbox" id="rfc6"><label for="rfc6">¿Velas contrarias te provocan duda/salida?</label></div>
-  </div>
-
-  <h2 id="biasChecklist">📊 BIAS - Checklist Operativa</h2>
+  <h2 id="OP">📊 Operativa</h2>
   <div class="section">
     <div class="item"><input type="checkbox" id="bias1"><label for="bias1">¿Identificaste la tendencia mayor en H1 correctamente?</label></div>
     <div class="item"><input type="checkbox" id="bias2"><label for="bias2">¿H1 activó 1 o más activadores en dirección clara?</label></div>
@@ -196,6 +185,16 @@
     <div class="item"><input type="checkbox" id="bias5"><label for="bias5">¿Tu punto de entrada (POE) está validado por último activador?</label></div>
     <div class="item"><input type="checkbox" id="bias6"><label for="bias6">¿El Stop Loss está correctamente ubicado y lógico?</label></div>
     <div class="item"><input type="checkbox" id="bias7"><label for="bias7">¿El tamaño de tu posición respeta tu gestión de riesgo?</label></div>
+  </div>
+
+  <h2 id="RF">🚩 Red Flags</h2>
+  <div class="section">
+    <div class="item"><input type="checkbox" id="rfc1"><label for="rfc1">¿Demasiado tiempo dentro de un OB? (>30min en M5 o >1h en M15)</label></div>
+    <div class="item"><input type="checkbox" id="rfc2"><label for="rfc2">¿Acumulación en medio de la entrada?</label></div>
+    <div class="item"><input type="checkbox" id="rfc3"><label for="rfc3">¿Quiebre de estructura en temporalidades pequeñas?</label></div>
+    <div class="item"><input type="checkbox" id="rfc4"><label for="rfc4">¿El precio tarda más de 3 horas en llegar al TP?</label></div>
+    <div class="item"><input type="checkbox" id="rfc5"><label for="rfc5">¿La entrada se ve "demasiado perfecta" para ser real?</label></div>
+    <div class="item"><input type="checkbox" id="rfc6"><label for="rfc6">¿Velas contrarias te provocan duda/salida?</label></div>
   </div>
 
   <div class="buttons">
