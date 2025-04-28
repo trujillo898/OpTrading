@@ -1,9 +1,7 @@
-
 {
-  "name": "Trading Manual PRO",
-  "short_name": "TradingPRO",
-  "description": "Manual Operativo RFC + BIAS",
-  "start_url": "./",
+  "name": "Operativa Trading PRO",
+  "short_name": "OpTrading",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#f5f7fa",
   "theme_color": "#5e60ce",
@@ -20,3 +18,4 @@
     }
   ]
 }
+
