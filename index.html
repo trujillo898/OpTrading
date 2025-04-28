@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <title>Operativa Trading PRO</title>
+  <title>OpTrading PRO</title>
   <style>
     :root {
       --primary: #5e60ce;
@@ -219,7 +219,7 @@
 </head>
 <body>
 
-  <h1>📈 Trading</h1>
+  <h1>OpTrading</h1>
 
   <nav>
     <button onclick="resetChecklist()" title="Resetear">
@@ -228,16 +228,8 @@
       </svg>
     </button>
     <a href="#Operativa" title="Operativa">📊</a>
-    <a href="#RedFlags" title="Red Flags">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
-        <path d="M4 2v20h2v-7h14l-2-5 2-5H6V2H4z"/>
-      </svg>
-    </a>
-    <a href="#Resultados" title="Resultados">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
-        <path d="M3 17h2v-7H3v7zm4 0h2V9H7v8zm4 0h2v-4h-2v4zm4 0h2v-10h-2v10zm4 0h2v-13h-2v13z"/>
-      </svg>
-    </a>
+    <a href="#RedFlags" title="Red Flags">🚩</a>
+    <a href="#Resultados" title="Resultados">📈</a>
     <button onclick="toggleDarkMode()" id="toggleMode" title="Modo">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
         <path d="M21.75 14.25a9 9 0 1 1-12-12 8.99 8.99 0 0 0 12 12z"/>
@@ -246,7 +238,7 @@
   </nav>
   
 
-  <h2 id="Operativa">📊 Operativa</h2>
+  <h2 id="Operativa">Operativa</h2>
   <div class="section">
     <div class="item"><input type="checkbox" id="bias1"><label for="bias1">¿Identificaste la tendencia mayor en H1 correctamente?</label></div>
     <div class="item"><input type="checkbox" id="bias2"><label for="bias2">¿H1 activó 1 o más activadores en dirección clara?</label></div>
@@ -257,7 +249,7 @@
     <div class="item"><input type="checkbox" id="bias7"><label for="bias7">¿El tamaño de tu posición respeta tu gestión de riesgo?</label></div>
   </div>
 
-  <h2 id="RedFlags">🚩 Red Flags</h2>
+  <h2 id="RedFlags">Red Flags</h2>
   <div class="section">
     <div class="item"><input type="checkbox" id="rfc1"><label for="rfc1">¿Demasiado tiempo dentro de un OB? (>30min en M5 o >1h en M15)</label></div>
     <div class="item"><input type="checkbox" id="rfc2"><label for="rfc2">¿Acumulación en medio de la entrada?</label></div>
@@ -267,7 +259,7 @@
     <div class="item"><input type="checkbox" id="rfc6"><label for="rfc6">¿Velas contrarias te provocan duda/salida?</label></div>
   </div>
   
-  <h2 id="Resultados">📈 Resultados</h2>
+  <h2 id="Resultados">Resultados</h2>
   <div class="section" id="resultados">
     <div class="buttons">
       <button onclick="registrarResultado(true)">✅ Gané</button>
@@ -276,19 +268,19 @@
 
     <div style="text-align:center; margin-top:20px;">
       <p id="estadisticas">✅ Win 0 | ❌ Loss 0 | 🏆 Winrate 0%</p>
-      <div id="historial" style="margin-top: 10px;">Historial: -</div>
+      <div id="historial" style="margin-top: 10px;">Historial -</div>
 
       <textarea id="nota" placeholder="Escribe una nota sobre este trade..." style="width:90%; margin-top:15px; border-radius:10px; padding:10px; border:1px solid #ccc;"></textarea>
       
       <div class="buttons" style="margin-top: 10px;">
-        <button onclick="guardarNota()">📝 Guardar Nota</button>
-        <button onclick="resetResultados()">🔄 Resetear Estadísticas</button>
-        <button onclick="exportarCSV()">📄 Exportar CSV</button>
+        <button onclick="guardarNota()">📝 Save</button>
+        <button onclick="resetResultados()">🔄 Reset</button>
+        <button onclick="exportarCSV()">📄 Export</button>
       </div>
     </div>
   </div>
 
-  <footer>Hecho para tu Trading 📈🚩 | Versión PRO 🚀</footer>
+  <footer>Hecho para tu Trading 🚀</footer>
 
   <script>
     const checklistItems = document.querySelectorAll('input[type="checkbox"]');
@@ -354,7 +346,7 @@
 
       document.getElementById('estadisticas').textContent = `✅ Win ${ganados} | ❌ Loss ${perdidos} | 🏆 Winrate ${winrate}%`;
       
-      document.getElementById('historial').innerHTML = "Historial: " + historial.slice(-5).map(r => r ? "✅" : "❌").join(" ");
+      document.getElementById('historial').innerHTML = "Historial " + historial.slice(-5).map(r => r ? "✅" : "❌").join(" ");
   
     }
 
