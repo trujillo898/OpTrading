@@ -2,10 +2,17 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#5e60ce">
-  <title>Manual de Trading Checklist PRO</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>Operativa Trading PRO</title>
   <style>
     :root {
       --primary: #5e60ce;
@@ -61,6 +68,40 @@
     nav a:hover {
       color: #d0d8ff;
     }
+
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: color 0.3s;
+      padding: 0;
+    }
+
+    nav button:hover {
+      color: #d0d8ff;
+    }
+
+    nav a, nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    nav a:hover, nav button:hover {
+      color: #d0d8ff;
+    }
+
 
     h1, h2 {
       text-align: center;
@@ -153,21 +194,27 @@
       font-size: 0.85em;
       color: #888;
     }
-
-    @media (max-width: 600px) {
-      body {
-        margin: 10px;
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
       }
       .section {
-        padding: 20px;
+        padding: 15px;
       }
-      nav {
-        justify-content: space-between;
-        padding-left: 22%;
-        padding-right: 22%;
-        gap: 10px;
+      h1, h2 {
+        font-size: 1.4rem;
+      }
+      button {
+        font-size: 0.95em;
+        padding: 10px 20px;
+      }
+      textarea {
+        font-size: 1em;
       }
     }
+
+
   </style>
 </head>
 <body>
@@ -175,11 +222,35 @@
   <h1>📈 Trading</h1>
 
   <nav>
-    <a href="#OP">📊 OP</a>
-    <a href="#RF">🚩 RF</a>
+    <button onclick="resetChecklist()" title="Resetear">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+        <path d="M20.7 5.3l-2-2a1 1 0 0 0-1.4 0L13 7.6l2 2L20.7 6.7a1 1 0 0 0 0-1.4zM12 9.6l-8 8V22h4.4l8-8-4.4-4.4z"/>
+      </svg>
+    </button>
+    <a href="#Operativa" title="Operativa">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+        <path d="M5 9h2v10H5V9zm6-4h2v14h-2V5zm6 8h2v6h-2v-6z"/>
+      </svg>
+    </a>
+    <a href="#RedFlags" title="Red Flags">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+        <path d="M4 2v20h2v-7h14l-2-5 2-5H6V2H4z"/>
+      </svg>
+    </a>
+    <a href="#Resultados" title="Resultados">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+        <path d="M3 17h2v-7H3v7zm4 0h2V9H7v8zm4 0h2v-4h-2v4zm4 0h2v-10h-2v10zm4 0h2v-13h-2v13z"/>
+      </svg>
+    </a>
+    <button onclick="toggleDarkMode()" id="toggleMode" title="Modo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+        <path d="M21.75 14.25a9 9 0 1 1-12-12 8.99 8.99 0 0 0 12 12z"/>
+      </svg>
+    </button>
   </nav>
+  
 
-  <h2 id="OP">📊 Operativa</h2>
+  <h2 id="Operativa">📊 Operativa</h2>
   <div class="section">
     <div class="item"><input type="checkbox" id="bias1"><label for="bias1">¿Identificaste la tendencia mayor en H1 correctamente?</label></div>
     <div class="item"><input type="checkbox" id="bias2"><label for="bias2">¿H1 activó 1 o más activadores en dirección clara?</label></div>
@@ -190,7 +261,7 @@
     <div class="item"><input type="checkbox" id="bias7"><label for="bias7">¿El tamaño de tu posición respeta tu gestión de riesgo?</label></div>
   </div>
 
-  <h2 id="RF">🚩 Red Flags</h2>
+  <h2 id="RedFlags">🚩 Red Flags</h2>
   <div class="section">
     <div class="item"><input type="checkbox" id="rfc1"><label for="rfc1">¿Demasiado tiempo dentro de un OB? (>30min en M5 o >1h en M15)</label></div>
     <div class="item"><input type="checkbox" id="rfc2"><label for="rfc2">¿Acumulación en medio de la entrada?</label></div>
@@ -199,13 +270,29 @@
     <div class="item"><input type="checkbox" id="rfc5"><label for="rfc5">¿La entrada se ve "demasiado perfecta" para ser real?</label></div>
     <div class="item"><input type="checkbox" id="rfc6"><label for="rfc6">¿Velas contrarias te provocan duda/salida?</label></div>
   </div>
+  
+  <h2 id="Resultados">📈 Resultados</h2>
+  <div class="section" id="resultados">
+    <div class="buttons">
+      <button onclick="registrarResultado(true)">✅ Gané</button>
+      <button onclick="registrarResultado(false)">❌ Perdí</button>
+    </div>
 
-  <div class="buttons">
-    <button onclick="resetChecklist()">🧹 Resetear</button>
-    <button onclick="toggleDarkMode()">🌙/☀️ Modo</button>
+    <div style="text-align:center; margin-top:20px;">
+      <p id="estadisticas">✅ Win 0 | ❌ Loss 0 | 🏆 Winrate 0%</p>
+      <div id="historial" style="margin-top: 10px;">Historial: -</div>
+
+      <textarea id="nota" placeholder="Escribe una nota sobre este trade..." style="width:90%; margin-top:15px; border-radius:10px; padding:10px; border:1px solid #ccc;"></textarea>
+      
+      <div class="buttons" style="margin-top: 10px;">
+        <button onclick="guardarNota()">📝 Guardar Nota</button>
+        <button onclick="resetResultados()">🔄 Resetear Estadísticas</button>
+        <button onclick="exportarCSV()">📄 Exportar CSV</button>
+      </div>
+    </div>
   </div>
 
-  <footer>Hecho para tu operativa BIAS + RFC 📈🚩 | Versión PRO 🚀</footer>
+  <footer>Hecho para tu Trading 📈🚩 | Versión PRO 🚀</footer>
 
   <script>
     const checklistItems = document.querySelectorAll('input[type="checkbox"]');
@@ -236,10 +323,124 @@
 
     function toggleDarkMode() {
       document.body.classList.toggle('dark-mode');
+      actualizarIconoModo();
+    }
+
+    function actualizarIconoModo() {
+      const botonModo = document.getElementById('toggleMode');
+      if (document.body.classList.contains('dark-mode')) {
+        botonModo.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+            <path d="M12 4V2m0 20v-2m8-8h2M2 12H4m15.364-7.364l1.414-1.414M4.636 4.636L3.222 3.222M19.364 19.364l1.414 1.414M4.636 19.364l-1.414 1.414M12 6a6 6 0 1 1 0 12 6 6 0 0 1 0-12z"/>
+          </svg>`;
+      } else {
+        botonModo.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+            <path d="M21.75 14.25a9 9 0 1 1-12-12 8.99 8.99 0 0 0 12 12z"/>
+          </svg>`;
+      }
     }
 
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       document.body.classList.add('dark-mode');
+    }
+
+    actualizarIconoModo();
+
+    let historial = JSON.parse(localStorage.getItem('historial')) || [];
+    let notas = JSON.parse(localStorage.getItem('notas')) || [];
+
+    function actualizarEstadisticas() {
+      const ganados = parseInt(localStorage.getItem('ganados') || 0);
+      const perdidos = parseInt(localStorage.getItem('perdidos') || 0);
+      const total = ganados + perdidos;
+      const winrate = total > 0 ? ((ganados / total) * 100).toFixed(1) : 0;
+
+      document.getElementById('estadisticas').textContent = `✅ Win ${ganados} | ❌ Loss ${perdidos} | 🏆 Winrate ${winrate}%`;
+      
+      document.getElementById('historial').innerHTML = "Historial: " + historial.slice(-5).map(r => r ? "✅" : "❌").join(" ");
+  
+    }
+
+    function mostrarMotivacion(ganado) {
+      const mensajesGanado = [
+        "¡Excelente trabajo! 🚀",
+        "¡Sigue así campeón! 🏆",
+        "¡Cada victoria cuenta! 🔥",
+        "¡Lo estás logrando! 💪",
+        "¡Trader de élite en acción! 🧠"
+      ];
+      
+      const mensajesPerdido = [
+        "¡No pasa nada, cada pérdida enseña! 📚",
+        "¡Aprende y sigue avanzando! 🛤️",
+        "¡Cada fallo es un paso más cerca del éxito! 🏁",
+        "¡Sigue mejorando, lo estás haciendo bien! ✨",
+        "¡Recuerda, consistencia gana! 🏆"
+      ];
+
+      const lista = ganado ? mensajesGanado : mensajesPerdido;
+      const mensaje = lista[Math.floor(Math.random() * lista.length)];
+      
+      alert(mensaje);
+    }
+
+    function registrarResultado(ganado) {
+      const key = ganado ? 'ganados' : 'perdidos';
+      const actual = parseInt(localStorage.getItem(key) || 0);
+      localStorage.setItem(key, actual + 1);
+      
+      historial.push(ganado);
+      localStorage.setItem('historial', JSON.stringify(historial));
+      
+      actualizarEstadisticas();
+      mostrarMotivacion(ganado);
+    }
+
+    function guardarNota() {
+      const nota = document.getElementById('nota').value.trim();
+      if (nota) {
+        notas.push({ fecha: new Date().toLocaleString(), texto: nota });
+        localStorage.setItem('notas', JSON.stringify(notas));
+        document.getElementById('nota').value = '';
+        alert("✅ Nota guardada.");
+      }
+    }
+
+    function resetResultados() {
+      if (confirm("¿Seguro que quieres resetear?")) {
+        localStorage.removeItem('ganados');
+        localStorage.removeItem('perdidos');
+        localStorage.removeItem('historial');
+        localStorage.removeItem('notas');
+        historial = [];
+        notas = [];
+        actualizarEstadisticas();
+      }
+    }
+
+    function exportarCSV() {
+      let csv = "Fecha,Nota\n";
+      notas.forEach(n => {
+        csv += `"${n.fecha}","${n.texto.replace(/"/g, '""')}"\n`;
+      });
+      
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'notas_trading.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    actualizarEstadisticas();
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js').then(function() {
+        console.log('Service Worker Registered');
+      });
     }
   </script>
 
