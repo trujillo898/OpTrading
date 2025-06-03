@@ -158,38 +158,38 @@
         }
 
         @media (max-width: 600px) {
-  table {
-    display: none; /* Oculta la tabla estándar */
-  }
+            table {
+                display: none;
+                /* Oculta la tabla estándar */
+            }
 
-  .trade-card {
-    background: white;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 0 5px rgba(0,0,0,0.05);
-  }
+            .trade-card {
+                background: white;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+            }
 
-  .trade-card p {
-    margin: 0.5rem 0;
-  }
+            .trade-card p {
+                margin: 0.5rem 0;
+            }
 
-  .trade-card .ganador {
-    color: green;
-    font-weight: bold;
-  }
+            .trade-card .ganador {
+                color: green;
+                font-weight: bold;
+            }
 
-  .trade-card .perdedor {
-    color: red;
-    font-weight: bold;
-  }
+            .trade-card .perdedor {
+                color: red;
+                font-weight: bold;
+            }
 
-  .delete-btn {
-    margin-top: 0.5rem;
-    width: 100%;
-  }
-}
-
+            .delete-btn {
+                margin-top: 0.5rem;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -261,6 +261,11 @@
         const estadisticasModal = document.getElementById('estadisticasModal');
         const overlay = document.getElementById('overlay');
         const closeStatsBtn = document.getElementById('closeStatsBtn');
+        // Establecer fecha actual al cargar
+        document.addEventListener('DOMContentLoaded', () => {
+            const hoy = new Date().toISOString().split('T')[0];
+            document.querySelector('input[name="fecha"]').value = hoy;
+        });
 
         toggleStatsBtn.addEventListener('click', () => {
             estadisticasModal.style.display = 'block';
@@ -390,7 +395,6 @@
             trades.push(trade);
             localStorage.setItem('trades', JSON.stringify(trades));
             renderTrades();
-            form.reset();
             [...parGroup.children].forEach(btn => btn.classList.remove('selected'));
             [...direccionGroup.children].forEach(btn => btn.classList.remove('selected'));
             [...resultadoGroup.children].forEach(btn => btn.classList.remove('selected'));
@@ -401,11 +405,11 @@
     </script>
     <script>
         if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('service-worker.js')
-            .then(reg => console.log('SW registrado', reg))
-            .catch(err => console.log('SW fallo', err));
+            navigator.serviceWorker.register('service-worker.js')
+                .then(reg => console.log('SW registrado', reg))
+                .catch(err => console.log('SW fallo', err));
         }
-    </script>      
+    </script>
 </body>
 
 </html>
