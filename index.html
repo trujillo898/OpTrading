@@ -1,357 +1,411 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#5e60ce">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="mobile-web-app-capable" content="yes">
-  <link rel="apple-touch-icon" href="icon-192.png">
-  <title>Historial de Trades</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 1rem;
-      background-color: #f3f4f6;
-    }
-    h1 {
-      text-align: center;
-      color: #1f2937;
-    }
-    #toggleStatsBtn {
-      display: block;
-      margin: 0.5rem auto 1rem auto;
-      padding: 0.5rem 1rem;
-      background-color: #10b981;
-      color: white;
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-    }
-    form, table {
-      max-width: 800px;
-      margin: 1rem auto;
-      background: white;
-      padding: 1rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
-    label {
-      display: block;
-      margin-top: 0.5rem;
-    }
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.25rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.25rem;
-    }
-    .btn-group {
-      display: flex;
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-    .btn-option {
-      flex: 1;
-      padding: 0.5rem;
-      background-color: #e5e7eb;
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-    }
-    .btn-option.selected {
-      background-color: #2563eb;
-      color: white;
-    }
-    button[type="submit"] {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-    }
-    .delete-btn {
-      background-color: #dc2626;
-      color: white;
-      border: none;
-      border-radius: 0.25rem;
-      padding: 0.25rem 0.5rem;
-      cursor: pointer;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 2rem;
-    }
-    th, td {
-      padding: 0.75rem;
-      border: 1px solid #e5e7eb;
-      text-align: left;
-    }
-    th {
-      background-color: #f9fafb;
-    }
-    .ganador {
-      color: green;
-    }
-    .perdedor {
-      color: red;
-    }
-    #estadisticasModal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      border-radius: 0.5rem;
-      padding: 2rem;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-    }
-    #overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.4);
-      z-index: 999;
-    }
-    #closeStatsBtn {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #6b7280;
-      color: white;
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-    }
-    @media (max-width: 600px) {
-      form, table {
-        width: 100%;
-        margin: 0;
-      }
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-      th {
-        display: none;
-      }
-      td {
-        position: relative;
-        padding-left: 50%;
-        text-align: right;
-      }
-      td::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 45%;
-        padding-left: 1rem;
-        font-weight: bold;
-        white-space: nowrap;
-      }
-      td:nth-of-type(1)::before { content: "Fecha"; }
-      td:nth-of-type(2)::before { content: "Par"; }
-      td:nth-of-type(3)::before { content: "Dirección"; }
-      td:nth-of-type(4)::before { content: "Resultado"; }
-      td:nth-of-type(5)::before { content: "Eliminar"; }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Historial de Trades</title>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 1rem;
+            background-color: #f3f4f6;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1f2937;
+        }
+
+        #toggleStatsBtn {
+            display: block;
+            margin: 0.5rem auto 1rem auto;
+            padding: 0.5rem 1rem;
+            background-color: #10b981;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+
+        form,
+        table {
+            max-width: 800px;
+            margin: 1rem auto;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        label {
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.25rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.25rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-option {
+            flex: 1;
+            padding: 0.5rem;
+            background-color: #e5e7eb;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+
+        .btn-option.selected {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        button[type="submit"] {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        th,
+        td {
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9fafb;
+        }
+
+        .ganador {
+            color: green;
+        }
+
+        .perdedor {
+            color: red;
+        }
+
+        #estadisticasModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+        }
+
+        #closeStatsBtn {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #6b7280;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+  table {
+    display: none; /* Oculta la tabla estándar */
+  }
+
+  .trade-card {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+  }
+
+  .trade-card p {
+    margin: 0.5rem 0;
+  }
+
+  .trade-card .ganador {
+    color: green;
+    font-weight: bold;
+  }
+
+  .trade-card .perdedor {
+    color: red;
+    font-weight: bold;
+  }
+
+  .delete-btn {
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+}
+
+    </style>
 </head>
+
 <body>
-  <h1>Historial de Trades</h1>
-  <button id="toggleStatsBtn">Mostrar Estadísticas</button>
+    <h1>Historial de Trades</h1>
+    <button id="toggleStatsBtn">Mostrar Estadísticas</button>
 
-  <form id="tradeForm">
-    <label>Fecha: <input type="date" name="fecha" required></label>
+    <form id="tradeForm">
+        <label>Fecha: <input type="date" name="fecha" required></label>
 
-    <label>Par:</label>
-    <div class="btn-group" id="parGroup">
-      <button type="button" class="btn-option" data-value="EURUSD">EURUSD</button>
-      <button type="button" class="btn-option" data-value="AUDUSD">AUDUSD</button>
-      <button type="button" class="btn-option" data-value="USDJPY">USDJPY</button>
+        <label>Par:</label>
+        <div class="btn-group" id="parGroup">
+            <button type="button" class="btn-option" data-value="EURUSD">EURUSD</button>
+            <button type="button" class="btn-option" data-value="AUDUSD">AUDUSD</button>
+            <button type="button" class="btn-option" data-value="USDJPY">USDJPY</button>
+        </div>
+
+        <label>Dirección:</label>
+        <div class="btn-group" id="direccionGroup">
+            <button type="button" class="btn-option" data-value="Buy">Buy</button>
+            <button type="button" class="btn-option" data-value="Sell">Sell</button>
+        </div>
+
+        <label>Resultado:</label>
+        <div class="btn-group" id="resultadoGroup">
+            <button type="button" class="btn-option" data-value="ganador">Ganador</button>
+            <button type="button" class="btn-option" data-value="perdedor">Perdedor</button>
+        </div>
+
+        <button type="submit">Guardar Trade</button>
+    </form>
+
+    <table id="historial">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Par</th>
+                <th>Dirección</th>
+                <th>Resultado</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Filas dinámicas -->
+        </tbody>
+    </table>
+
+    <div id="overlay"></div>
+    <div id="estadisticasModal">
+        <h2>Estadísticas</h2>
+        <p>Total de trades: <span id="totalTrades">0</span></p>
+        <p>Ganadores: <span id="totalGanadores">0</span></p>
+        <p>Perdedores: <span id="totalPerdedores">0</span></p>
+        <p>Win Rate: <span id="winRate">0%</span></p>
+        <button id="closeStatsBtn">Cerrar</button>
     </div>
 
-    <label>Dirección:</label>
-    <div class="btn-group" id="direccionGroup">
-      <button type="button" class="btn-option" data-value="Buy">Buy</button>
-      <button type="button" class="btn-option" data-value="Sell">Sell</button>
-    </div>
+    <script>
+        const form = document.getElementById('tradeForm');
+        const tbody = document.querySelector('#historial tbody');
+        const parGroup = document.getElementById('parGroup');
+        const direccionGroup = document.getElementById('direccionGroup');
+        const resultadoGroup = document.getElementById('resultadoGroup');
+        const totalTradesEl = document.getElementById('totalTrades');
+        const totalGanadoresEl = document.getElementById('totalGanadores');
+        const totalPerdedoresEl = document.getElementById('totalPerdedores');
+        const winRateEl = document.getElementById('winRate');
+        const toggleStatsBtn = document.getElementById('toggleStatsBtn');
+        const estadisticasModal = document.getElementById('estadisticasModal');
+        const overlay = document.getElementById('overlay');
+        const closeStatsBtn = document.getElementById('closeStatsBtn');
 
-    <label>Resultado:</label>
-    <div class="btn-group" id="resultadoGroup">
-      <button type="button" class="btn-option" data-value="ganador">Ganador</button>
-      <button type="button" class="btn-option" data-value="perdedor">Perdedor</button>
-    </div>
-
-    <button type="submit">Guardar Trade</button>
-  </form>
-
-  <table id="historial">
-    <thead>
-      <tr>
-        <th>Fecha</th>
-        <th>Par</th>
-        <th>Dirección</th>
-        <th>Resultado</th>
-        <th>Eliminar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Filas dinámicas -->
-    </tbody>
-  </table>
-
-  <div id="overlay"></div>
-  <div id="estadisticasModal">
-    <h2>Estadísticas</h2>
-    <p>Total de trades: <span id="totalTrades">0</span></p>
-    <p>Ganadores: <span id="totalGanadores">0</span></p>
-    <p>Perdedores: <span id="totalPerdedores">0</span></p>
-    <p>Win Rate: <span id="winRate">0%</span></p>
-    <button id="closeStatsBtn">Cerrar</button>
-  </div>
-
-  <script>
-    const form = document.getElementById('tradeForm');
-    const tbody = document.querySelector('#historial tbody');
-    const parGroup = document.getElementById('parGroup');
-    const direccionGroup = document.getElementById('direccionGroup');
-    const resultadoGroup = document.getElementById('resultadoGroup');
-    const totalTradesEl = document.getElementById('totalTrades');
-    const totalGanadoresEl = document.getElementById('totalGanadores');
-    const totalPerdedoresEl = document.getElementById('totalPerdedores');
-    const winRateEl = document.getElementById('winRate');
-    const toggleStatsBtn = document.getElementById('toggleStatsBtn');
-    const estadisticasModal = document.getElementById('estadisticasModal');
-    const overlay = document.getElementById('overlay');
-    const closeStatsBtn = document.getElementById('closeStatsBtn');
-
-    toggleStatsBtn.addEventListener('click', () => {
-      estadisticasModal.style.display = 'block';
-      overlay.style.display = 'block';
-    });
-
-    closeStatsBtn.addEventListener('click', () => {
-      estadisticasModal.style.display = 'none';
-      overlay.style.display = 'none';
-    });
-
-    overlay.addEventListener('click', () => {
-      estadisticasModal.style.display = 'none';
-      overlay.style.display = 'none';
-    });
-
-    let parSeleccionado = null;
-    let direccionSeleccionada = null;
-    let resultadoSeleccionado = null;
-
-    parGroup.addEventListener('click', e => {
-      if (e.target.classList.contains('btn-option')) {
-        [...parGroup.children].forEach(btn => btn.classList.remove('selected'));
-        e.target.classList.add('selected');
-        parSeleccionado = e.target.dataset.value;
-      }
-    });
-
-    direccionGroup.addEventListener('click', e => {
-      if (e.target.classList.contains('btn-option')) {
-        [...direccionGroup.children].forEach(btn => btn.classList.remove('selected'));
-        e.target.classList.add('selected');
-        direccionSeleccionada = e.target.dataset.value;
-      }
-    });
-
-    resultadoGroup.addEventListener('click', e => {
-      if (e.target.classList.contains('btn-option')) {
-        [...resultadoGroup.children].forEach(btn => btn.classList.remove('selected'));
-        e.target.classList.add('selected');
-        resultadoSeleccionado = e.target.dataset.value;
-      }
-    });
-
-    let trades = JSON.parse(localStorage.getItem('trades')) || [];
-
-    const actualizarEstadisticas = () => {
-      const total = trades.length;
-      const ganadores = trades.filter(t => t.resultado === 'ganador').length;
-      const perdedores = trades.filter(t => t.resultado === 'perdedor').length;
-      const winRate = total > 0 ? ((ganadores / total) * 100).toFixed(2) : 0;
-
-      totalTradesEl.textContent = total;
-      totalGanadoresEl.textContent = ganadores;
-      totalPerdedoresEl.textContent = perdedores;
-      winRateEl.textContent = winRate + '%';
-    };
-
-    const renderTrades = () => {
-      tbody.innerHTML = '';
-      trades.forEach((trade, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${trade.fecha}</td>
-          <td>${trade.par}</td>
-          <td>${trade.direccion}</td>
-          <td class="${trade.resultado}">${trade.resultado}</td>
-          <td><button class="delete-btn" data-index="${index}">Eliminar</button></td>
-        `;
-        tbody.appendChild(row);
-      });
-
-      document.querySelectorAll('.delete-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-          const index = e.target.dataset.index;
-          trades.splice(index, 1);
-          localStorage.setItem('trades', JSON.stringify(trades));
-          renderTrades();
-          actualizarEstadisticas();
+        toggleStatsBtn.addEventListener('click', () => {
+            estadisticasModal.style.display = 'block';
+            overlay.style.display = 'block';
         });
-      });
 
-      actualizarEstadisticas();
-    };
+        closeStatsBtn.addEventListener('click', () => {
+            estadisticasModal.style.display = 'none';
+            overlay.style.display = 'none';
+        });
 
-    renderTrades();
+        overlay.addEventListener('click', () => {
+            estadisticasModal.style.display = 'none';
+            overlay.style.display = 'none';
+        });
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+        let parSeleccionado = null;
+        let direccionSeleccionada = null;
+        let resultadoSeleccionado = null;
 
-      const data = new FormData(form);
-      const trade = {
-        fecha: data.get('fecha'),
-        par: parSeleccionado,
-        direccion: direccionSeleccionada,
-        resultado: resultadoSeleccionado
-      };
+        parGroup.addEventListener('click', e => {
+            if (e.target.classList.contains('btn-option')) {
+                [...parGroup.children].forEach(btn => btn.classList.remove('selected'));
+                e.target.classList.add('selected');
+                parSeleccionado = e.target.dataset.value;
+            }
+        });
 
-      if (!trade.par || !trade.direccion || !trade.resultado) {
-        alert('Por favor selecciona Par, Dirección y Resultado.');
-        return;
-      }
+        direccionGroup.addEventListener('click', e => {
+            if (e.target.classList.contains('btn-option')) {
+                [...direccionGroup.children].forEach(btn => btn.classList.remove('selected'));
+                e.target.classList.add('selected');
+                direccionSeleccionada = e.target.dataset.value;
+            }
+        });
 
-      trades.push(trade);
-      localStorage.setItem('trades', JSON.stringify(trades));
-      renderTrades();
-      form.reset();
-      [...parGroup.children].forEach(btn => btn.classList.remove('selected'));
-      [...direccionGroup.children].forEach(btn => btn.classList.remove('selected'));
-      [...resultadoGroup.children].forEach(btn => btn.classList.remove('selected'));
-      parSeleccionado = null;
-      direccionSeleccionada = null;
-      resultadoSeleccionado = null;
-    });
-  </script>
+        resultadoGroup.addEventListener('click', e => {
+            if (e.target.classList.contains('btn-option')) {
+                [...resultadoGroup.children].forEach(btn => btn.classList.remove('selected'));
+                e.target.classList.add('selected');
+                resultadoSeleccionado = e.target.dataset.value;
+            }
+        });
+
+        let trades = JSON.parse(localStorage.getItem('trades')) || [];
+
+        const actualizarEstadisticas = () => {
+            const total = trades.length;
+            const ganadores = trades.filter(t => t.resultado === 'ganador').length;
+            const perdedores = trades.filter(t => t.resultado === 'perdedor').length;
+            const winRate = total > 0 ? ((ganadores / total) * 100).toFixed(2) : 0;
+
+            totalTradesEl.textContent = total;
+            totalGanadoresEl.textContent = ganadores;
+            totalPerdedoresEl.textContent = perdedores;
+            winRateEl.textContent = winRate + '%';
+        };
+
+        const renderTrades = () => {
+            tbody.innerHTML = '';
+
+            const tradeCardsContainer = document.getElementById('tradeCards');
+            if (tradeCardsContainer) tradeCardsContainer.remove(); // elimina antes de volver a renderizar
+
+            const container = document.createElement('div');
+            container.id = 'tradeCards';
+
+            trades.forEach((trade, index) => {
+                // Tabla normal para escritorio
+                const row = document.createElement('tr');
+                row.innerHTML = `
+      <td>${trade.fecha}</td>
+      <td>${trade.par}</td>
+      <td>${trade.direccion}</td>
+      <td class="${trade.resultado}">${trade.resultado}</td>
+      <td><button class="delete-btn" data-index="${index}">Eliminar</button></td>
+    `;
+                tbody.appendChild(row);
+
+                // Tarjeta para móvil
+                const card = document.createElement('div');
+                card.className = 'trade-card';
+                card.innerHTML = `
+      <p><strong>Fecha:</strong> ${trade.fecha}</p>
+      <p><strong>Par:</strong> ${trade.par}</p>
+      <p><strong>Dirección:</strong> ${trade.direccion}</p>
+      <p><strong>Resultado:</strong> <span class="${trade.resultado}">${trade.resultado}</span></p>
+      <button class="delete-btn" data-index="${index}">Eliminar</button>
+    `;
+                container.appendChild(card);
+            });
+
+            document.body.appendChild(container);
+
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const index = e.target.dataset.index;
+                    trades.splice(index, 1);
+                    localStorage.setItem('trades', JSON.stringify(trades));
+                    renderTrades();
+                    actualizarEstadisticas();
+                });
+            });
+
+            actualizarEstadisticas();
+        };
+
+
+        renderTrades();
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const data = new FormData(form);
+            const trade = {
+                fecha: data.get('fecha'),
+                par: parSeleccionado,
+                direccion: direccionSeleccionada,
+                resultado: resultadoSeleccionado
+            };
+
+            if (!trade.par || !trade.direccion || !trade.resultado) {
+                alert('Por favor selecciona Par, Dirección y Resultado.');
+                return;
+            }
+
+            trades.push(trade);
+            localStorage.setItem('trades', JSON.stringify(trades));
+            renderTrades();
+            form.reset();
+            [...parGroup.children].forEach(btn => btn.classList.remove('selected'));
+            [...direccionGroup.children].forEach(btn => btn.classList.remove('selected'));
+            [...resultadoGroup.children].forEach(btn => btn.classList.remove('selected'));
+            parSeleccionado = null;
+            direccionSeleccionada = null;
+            resultadoSeleccionado = null;
+        });
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('service-worker.js')
+            .then(reg => console.log('SW registrado', reg))
+            .catch(err => console.log('SW fallo', err));
+        }
+    </script>      
 </body>
+
 </html>
